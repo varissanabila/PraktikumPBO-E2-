@@ -1,7 +1,7 @@
 /* Nama File    : Titik.java
  * Deskripsi    : Berisi atribut dan method dalam class Titik
  * Pembuat      : Varissa Nabila Kifli
- * Tanggal      : 27 Februari 2026
+ * Tanggal      : 19 Februari 2026
  */
 
 public class Titik {
@@ -9,18 +9,12 @@ public class Titik {
     double absis;
     double ordinat;
 
-    /**************** METHOD 
-     * @param j 
-     * @param i ******************/
+    /**************** METHOD ******************/
     
     // Konstruktor untuk membuat titik (0,0)
-    Titik(double i, double j) {
+    Titik() {
         absis = 0;
         ordinat = 0;
-    }
-
-    public Titik(double i, double j) {
-        //TODO Auto-generated constructor stub
     }
 
     // Mengembalikan nilai absis
@@ -91,11 +85,6 @@ public class Titik {
         T1.setAbsis(-1*absis);
         return T1;
         }
-
-    public double getJarak(Titik titikAkhir) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getJarak'");
-    }
 
 
 
