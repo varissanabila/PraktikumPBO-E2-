@@ -9,10 +9,12 @@ public class Titik {
     double absis;
     double ordinat;
 
-    /**************** METHOD ******************/
+    /**************** METHOD 
+     * @param e 
+     * @param d ******************/
     
     // Konstruktor untuk membuat titik (0,0)
-    Titik() {
+    Titik(double d, double e) {
         absis = 0;
         ordinat = 0;
     }
@@ -73,7 +75,7 @@ public class Titik {
     }
 
     Titik getrefleksiX(){
-        Titik T1= new Titik();
+        Titik T1= new Titik(absis, absis);
         T1.setOrdinat(absis);
         T1.setAbsis(-1*absis);
         return T1;
