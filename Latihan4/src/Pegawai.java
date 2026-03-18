@@ -1,4 +1,8 @@
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.text.NumberFormat;
 
 public class Pegawai {
     /* ATRIBUT */
@@ -18,23 +22,23 @@ public class Pegawai {
     }
 
     /* SELEKTOR */
-    public String NIP(){
+    public String getNIP(){
         return NIP;
     }
 
-    public String Nama(){
+    public String getNama(){
         return Nama;
     }
 
-    public LocalDate TL(){
+    public LocalDate getTL(){
         return TL;
     }
 
-    public LocalDate TMT(){
+    public LocalDate getTMT(){
         return TMT;
     }
 
-    public double GajiPokok(){
+    public double getGajiPokok(){
         return GajiPokok;
     }
 
@@ -58,5 +62,44 @@ public class Pegawai {
     public void setGajiPokok(double GajiPokok){
         this.GajiPokok = GajiPokok;
     }
+
+    public double getTunjangan(){
+        return 0;
+    }
+
+    public void printInfo(){
+        System.out.println("NIP : " + getNIP());
+        System.out.println("Nama : " + getNama());
+        System.out.println("Tanggal Lahir : " + formatTanggal(getTL()));
+        System.out.println("TMT : " + formatTanggal(getTMT()));
+        System.out.println("Gaji Pokok : " + formatRupiah(getGajiPokok()));
+    }
+
+    // Format
+    protected String formatTanggal(LocalDate date){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy", new Locale("id","ID"));
+        return date.format(formatter);
+    }
+
+    protected String formatRupiah(double uang){
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("id","ID"));
+        return nf.format(uang);
+    }
+
+    // Masa kerja
+    public Period getMasaKerja(){
+        return Period.between(TMT, LocalDate.now());
+    }
+
+    public String formatMasaKerja(){
+        Period p = getMasaKerja();
+        return p.getYears() + " tahun " + p.getMonths() + " bulan";
+    }
+
+
+    
+
+
+
 
 }
