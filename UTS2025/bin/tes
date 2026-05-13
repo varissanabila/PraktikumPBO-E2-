@@ -1,0 +1,224 @@
+public class Pelatihan {
+    // == ATRIBUT ==
+    protected String kode;
+    protected String nama;
+    protected String kuota;
+    protected String instruktur;
+    protected double harga;
+    protected static double pajak = 0.15;
+    
+    //== KONSTRUKTOR ==
+    public Pelatihan()
+    {
+        this.kode = "";
+        this.nama = "";
+        this.instruktur = "";
+        this.harga = 0.0;
+    }
+    // overload
+    public Pelatihan(String kode, String nama, String kuota,  String instruktur, double harga)
+    {
+        this.kode = kode;
+        this.nama = nama;
+        this.kuota = kuota;
+        this.instruktur = instruktur;
+        this.harga = harga;
+    }
+
+    // == GETTER ==
+    public String getKode(){return kode;}
+    public String getNama(){return nama;}
+    public String getKuota(){return kuota;}
+    public String getInstruktur(){return instruktur;}
+    public double getHarga(){return harga;}
+    public static double getPajak(){return pajak;}
+
+    // == SETTER ==
+    public void setKode(String kode){this.kode = kode;}
+    public void setNama(String nama){this.nama= nama;}
+    public void setKuota(String kuota){this.kuota = kuota;}
+    public void setInstruktur(String instruktur){this.instruktur = instruktur;}
+    public void setHarga(double harga){this.harga = harga;}
+    
+    // == METHOD ==
+    // hitung harga akhir setelah kena pajak
+    public double hitungHarga()
+    {
+        return getHarga()+(getPajak()*getHarga());
+    }
+    //overload
+        public double hitungHarga(double diskon)
+    {
+        return getHarga()-(diskon*getHarga())+ (getPajak()*getHarga());
+    }
+
+    // jenis, karena masih di parent makanya blm diketahui
+    public String getJenis()
+    {
+        return "Blm ada";
+    }
+
+    // printinfo
+    public void printInfo(){
+        System.out.println("Kode\t= " + getKode());
+        System.out.println("Nama\t= " + getNama());
+        System.out.println("Jenis\t= " + getJenis());
+        System.out.println("Kuota\t= " + getKuota());
+        System.out.println("Harga\t= " + getHarga());
+        System.out.println("Pajak\t= " + getPajak());
+        System.out.println("Harga akhir setelah pajak\t= " + hitungHarga());
+    }
+}
+
+import java.time.LocalDate;
+public class PelatihanInsidental extends Pelatihan {
+   // == ATRIBUT ==
+    private LocalDate tanggal;
+    private String mode;
+
+    // == KONTRUKTOR ==
+    public PelatihanInsidental(){
+        super();
+        this.tanggal = LocalDate.now();
+        this.mode = "";
+    }
+
+    public PelatihanInsidental(LocalDate tanggal, String mode,  String kode, String nama, String kuota,  String instruktur, double harga ){
+        super(kode, nama,kuota, instruktur, harga);
+        this.tanggal = tanggal;
+        this.mode = mode;
+    }
+
+    // == GETTER ==
+    public LocalDate getTanggal(){return tanggal;}
+    public String getMode(){return mode;}
+
+    // == SETTER ==
+    public void setTanggal(LocalDate tanggal){this.tanggal = tanggal;}
+    public void setMode(String mode){this.mode = mode;}
+
+    // printinfo
+    @Override
+    public void printInfo(){
+        super.printInfo();
+        System.out.println("Tanggal\t= " + getTanggal());
+        System.out.println("Mode\t= " + getMode());
+    }
+}
+
+public class PelatihanReguler extends Pelatihan{
+    // == ATRIBUT ==
+    private int durasi;
+    private String level;
+    private String metode;
+
+    // == KONTRUKTOR ==
+    public PelatihanReguler(){
+        super();
+        this.durasi = 0;
+        this.level = "";
+        this.metode = "";
+    }
+
+    public PelatihanReguler(int durasi, String level, String metode, String kode, String nama, String kuota,  String instruktur, double harga ){
+        super(kode, nama,kuota, instruktur, harga);
+        this.durasi = durasi;
+        this.level = level;
+        this.metode =metode;
+    }
+
+    // == GETTER ==
+    public int getDurasi(){return durasi;}
+    public String getLevel(){return level;}
+    public String getMetode(){return metode;}
+
+    // == SETTER ==
+    public void setDurasi(int durasi){this.durasi = durasi;}
+    public void setLevel(String level){this.level = level;}
+    public void setMode(String metode){this.metode = metode;}
+
+    // printinfo
+    @Override
+    public void printInfo(){
+        super.printInfo();
+        System.out.println("Durasi\t= " + getDurasi());
+        System.out.println("Level\t= " + getLevel());
+        System.out.println("Mode\t= " + getMetode());
+    }
+}
+
+import java.util.ArrayList;
+
+abstract class Peserta {
+    protected String nik;
+    protected String nama;
+    protected String email;
+    protected ArrayList<Registrasi> daftarPelatihan;
+
+    // konstruktor kosong
+    public Peserta() {
+        this.nik = "";
+        this.nama = "";
+        this.email = "";
+        this.daftarPelatihan = new ArrayList<>();
+    }
+
+    // konstruktor berparameter
+    public Peserta(String nik, String nama, String email) {
+        this.nik = nik;
+        this.nama = nama;
+        this.email = email;
+        this.daftarPelatihan = new ArrayList<>();
+    }
+
+    // getter
+    public String getNik() { return nik; }
+    public String getNama() { return nama; }
+    public String getEmail() { return email; }
+
+    // setter
+    public void setNik(String nik) { this.nik = nik; }
+    public void setNama(String nama) { this.nama = nama; }
+    public void setEmail(String email) { this.email = email; }
+
+
+    // method
+    public boolean tambahRegistrasi(Registrasi r)
+    {
+        if (daftarPelatihan.size()<3){
+            daftarPelatihan.add(r);
+            return true;
+        }else{
+            System.out.println("Maksimal 3 pelatihan");
+            return false;
+        }
+    }
+
+    public abstract double getDiskon();
+
+    public void printInfo(){
+        System.out.println("NIK\t= " + getNik());
+        System.out.println("Nama\t= " + getNama());
+        System.out.println("Email\t= " + getEmail());
+        System.out.println("Pelatihan yang didaftar\t= " + daftarPelatihan());
+        System.out.println("Email\t= " + getEmail()); // gatauu
+    }
+
+
+
+
+
+}
+
+
+class PesertaUmum extends Peserta {
+
+    public PesertaUmum(String nik, String nama, String email) {
+        super(nik, nama, email);
+    }
+
+    @Override
+    public double getDiskon() {
+        return 0;
+    }
+}

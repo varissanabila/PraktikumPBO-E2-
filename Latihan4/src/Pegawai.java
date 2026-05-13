@@ -94,12 +94,4 @@ public class Pegawai {
     public String formatMasaKerja(){
         Period p = getMasaKerja();
         return p.getYears() + " tahun " + p.getMonths() + " bulan";
-    }
-
-
-    
-
-
-
-
-}
+    }}
